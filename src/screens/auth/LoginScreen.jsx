@@ -47,7 +47,7 @@ const LoginScreen = () => {
         navigation.dispatch(
           CommonActions.reset({
             index: 1,
-            routes: [{name: NavigationNames.HomeTabScreen}],
+            routes: [{name: 'Root'}],
           }),
         );
       })

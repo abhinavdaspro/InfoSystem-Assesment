@@ -5,6 +5,8 @@ const AuthContext = createContext({});
 const AuthProvider = ({children}) => {
   const [loggedInUser, setLoggedInUser] = useState(false);
   const [userData, setUserData] = useState({});
+  const [products, setProducts] = useState([]);
+  const [singleProduct, setSingleProduct] = useState({});
 
   const getAuthState = () => {
     return new Promise((resolve, reject) => {
@@ -13,7 +15,9 @@ const AuthProvider = ({children}) => {
           if (res) {
             console.log('token---', res);
             setLoggedInUser(true);
-            setUserData(JSON.parse(res));
+            AsyncStorage.getItem('userData').then(res => {
+              setUserData(JSON.parse(res));
+            });
             resolve(true);
           } else {
             setLoggedInUser(false);
@@ -24,11 +28,12 @@ const AuthProvider = ({children}) => {
         .catch(err => {
           console.log('Auth catch block-----', err);
           setLoggedInUser(false);
-          setUserData({});
+          // setUserData({});
           reject(true);
         });
     });
   };
+
   return (
     <AuthContext.Provider
       value={{
@@ -37,6 +42,10 @@ const AuthProvider = ({children}) => {
         userData,
         setUserData,
         getAuthState,
+        products,
+        setProducts,
+        singleProduct,
+        setSingleProduct,
       }}>
       {children}
     </AuthContext.Provider>

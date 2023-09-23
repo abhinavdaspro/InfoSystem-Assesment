@@ -39,9 +39,7 @@ const StackNavigator = () => {
   return (
     <Stack.Navigator
       initialRouteName={
-        contextData.loggedInUser
-          ? NavigationNames.HomeTabScreen
-          : NavigationNames.LoginScreen
+        contextData.loggedInUser ? 'Root' : NavigationNames.LoginScreen
       }>
       <Stack.Screen
         component={LoginScreen}
@@ -50,7 +48,7 @@ const StackNavigator = () => {
       />
       <Stack.Screen
         component={HomeTabNavigator}
-        name={NavigationNames.HomeTabScreen}
+        name={'Root'}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

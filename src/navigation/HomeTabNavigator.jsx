@@ -6,6 +6,9 @@ import {Fonts, colors} from '../config';
 import NavigationNames from './NavigationNames';
 import {HomeScreen} from '../screens/HomeScreen/HomeScreen';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Entypo from 'react-native-vector-icons/Entypo';
+import {UserScreen} from '../screens/UserScreen/UserScreen';
+
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -42,10 +45,22 @@ const HomeTabNavigator = () => {
 
   const HomeTabStack = () => {
     return (
-      <Stack.Navigator initialRouteName={NavigationNames.HomeScreen}>
+      <Stack.Navigator>
         <Stack.Screen
           component={HomeScreen}
           name={NavigationNames.HomeScreen}
+          options={{headerShown: false}}
+        />
+      </Stack.Navigator>
+    );
+  };
+
+  const UserTabStack = () => {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen
+          component={UserScreen}
+          name={NavigationNames.UserScreen}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
@@ -66,7 +81,7 @@ const HomeTabNavigator = () => {
         tabBarInactiveTintColor: colors.GRAY,
       }}>
       <Tab.Screen
-        name={NavigationNames.HomeScreen}
+        name={NavigationNames.HomeTabScreen}
         component={HomeTabStack}
         options={{
           headerShown: false,
@@ -74,7 +89,7 @@ const HomeTabNavigator = () => {
             return (
               <FontAwesome5
                 name="home"
-                color={focused ? colors.PRIMARY : colors.GRAY_LIGHT}
+                color={focused ? colors.PRIMARY : colors.GRAY}
                 size={20}
               />
             );
@@ -84,7 +99,7 @@ const HomeTabNavigator = () => {
               Platform.OS === 'ios' && (
                 <Text
                   style={{
-                    color: focused ? colors.PRIMARY : colors.GRAY_LIGHT,
+                    color: focused ? colors.PRIMARY : colors.GRAY,
                     fontSize: 14,
                     fontFamily: focused
                       ? Fonts.Montserrat_bold
@@ -97,6 +112,38 @@ const HomeTabNavigator = () => {
           },
         }}
       />
+      {/* <Tab.Screen
+        name={NavigationNames.UserTabScreen}
+        component={UserTabStack}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({color, focused, size}) => {
+            return (
+              <Entypo
+                name="user"
+                color={focused ? colors.PRIMARY : colors.GRAY}
+                size={20}
+              />
+            );
+          },
+          tabBarLabel: ({color, focused, size}) => {
+            return (
+              Platform.OS === 'ios' && (
+                <Text
+                  style={{
+                    color: focused ? colors.PRIMARY : colors.GRAY,
+                    fontSize: 14,
+                    fontFamily: focused
+                      ? Fonts.Montserrat_bold
+                      : Fonts.Montserrat_light,
+                  }}>
+                  User
+                </Text>
+              )
+            );
+          },
+        }}
+      /> */}
     </Tab.Navigator>
   );
 };

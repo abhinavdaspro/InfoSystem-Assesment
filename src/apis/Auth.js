@@ -31,6 +31,14 @@ export const loginAPI = async data => {
             'token',
             JSON.stringify(`${foundUser.email}-${new Date().getTime()}`),
           );
+          AsyncStorage.setItem(
+            'userData',
+            JSON.stringify({
+              userName: foundUser.userName,
+              email: foundUser.email,
+              role: foundUser.role,
+            }),
+          );
           resolve(foundUser);
         } else {
           reject({
@@ -53,7 +61,7 @@ export const registerAPI = data => {
   return new Promise((resolve, reject) => {
     let userData = {
       ...data,
-      role: ['SM'],
+      role: 'SM',
     };
     // role--- ['SM','DM']
 
