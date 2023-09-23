@@ -5,13 +5,16 @@ export const loginAPI = async data => {
     AsyncStorage.getItem('users')
       .then(res => {
         let users = JSON.parse(res);
-        if (!users || users.length === 0) {
+        if (!users) {
           console.error('get fail');
           reject({
             message: 'Please Register.',
             description: 'Please register first to use this app.',
           });
+          return;
         }
+
+        console.log('users---', users);
 
         let foundUser = users.find(val => val.email === data.email);
         if (!foundUser) {
@@ -50,8 +53,9 @@ export const registerAPI = data => {
   return new Promise((resolve, reject) => {
     let userData = {
       ...data,
-      role: ['DM'],
+      role: ['SM'],
     };
+    // role--- ['SM','DM']
 
     AsyncStorage.getItem('users')
       .then(res => {
@@ -65,18 +69,26 @@ export const registerAPI = data => {
           });
         }
 
-        if (users.find(val => val.email === userData.email)) {
-          reject({
-            message: 'Registration Failed',
-            description: 'This Email has been registered already.',
+        console.log('users----', users);
+        if (users) {
+          if (users.find(val => val.email === userData.email)) {
+            reject({
+              message: 'Registration Failed',
+              description: 'This Email has been registered already.',
+            });
+          }
+          AsyncStorage.setItem('users', JSON.stringify([...users, userData]));
+          resolve({
+            message: 'Registration Successful',
+            description: 'A new user has been registered successfully.',
+          });
+        } else {
+          AsyncStorage.setItem('users', JSON.stringify([userData]));
+          resolve({
+            message: 'Registration Successful',
+            description: 'A new user has been registered successfully.',
           });
         }
-
-        AsyncStorage.setItem('users', JSON.stringify([...users, userData]));
-        resolve({
-          message: 'Registration Successful',
-          description: 'A new user has been registered successfully.',
-        });
       })
       .catch(err => {
         console.error('error from async storage in register----', err);

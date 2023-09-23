@@ -1,5 +1,7 @@
 const NavigationNames = {
-    LoginScreen: 'LoginScreen',
-}
+  LoginScreen: 'LoginScreen',
+  HomeTabScreen: 'HomeTabScreen',
+  HomeScreen: 'HomeScreen',
+};
 
 export default NavigationNames;

@@ -1,6 +1,7 @@
 import React from 'react';
 import {FocusAwareStatusBar} from './FocusedStatusBar';
 import {Dimensions, Platform, StyleSheet} from 'react-native';
+import {colors} from '../../config';
 
 export const HeaderView = () => {
   return (
@@ -9,7 +10,7 @@ export const HeaderView = () => {
         barStyle="dark-content"
         backgroundColor={colors.WHITE}
       />
-      <View style={styles.view}></View>
+      {/* <View style={styles.view}></View> */}
     </>
   );
 };

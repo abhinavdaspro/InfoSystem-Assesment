@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {
   Alert,
   Dimensions,
@@ -15,8 +15,14 @@ import {loginAPI} from '../../apis/Auth';
 import {showMessage} from 'react-native-flash-message';
 import SansText from '../../components/Commons/SansText';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {AuthContext} from '../../service/AuthService';
+import {CommonActions, useNavigation} from '@react-navigation/native';
+import NavigationNames from '../../navigation/NavigationNames';
+import IonIcon from 'react-native-vector-icons/Ionicons';
 
 const LoginScreen = () => {
+  const navigation = useNavigation();
+  const contextData = useContext(AuthContext);
   const [modalVisible, setModalVisible] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
@@ -37,7 +43,13 @@ const LoginScreen = () => {
 
     loginAPI(formData)
       .then(res => {
-        Alert.alert('login true');
+        contextData.setUserData(res);
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 1,
+            routes: [{name: NavigationNames.HomeTabScreen}],
+          }),
+        );
       })
       .catch(err => {
         showMessage({
