@@ -20,11 +20,11 @@ const StackNavigator = () => {
     contextData
       .getAuthState()
       .then(res => {
-        console.log('user login---', contextData.loggedInUser);
+        // console.log('user login---', contextData.loggedInUser);
         setLoading(false);
       })
       .catch(err => {
-        console.error('fail---', contextData.loggedInUser);
+        // console.error('fail---', contextData.loggedInUser);
         setLoading(false);
       });
   }, []);

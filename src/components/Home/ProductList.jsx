@@ -1,16 +1,18 @@
 import React, {useContext, useEffect} from 'react';
 import SansText from '../Commons/SansText';
 import {AuthContext} from '../../service/AuthService';
-import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {
+  Platform,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {Fonts, colors} from '../../config';
 import Entypo from 'react-native-vector-icons/Entypo';
 
 const ProductList = ({storeAndShow}) => {
   const {products, setProducts, userData} = useContext(AuthContext);
-
-  useEffect(() => {
-    console.log('product changed---');
-  }, [products]);
 
   const renderItem = (val, i) => {
     return (
@@ -83,8 +85,9 @@ const ProductList = ({storeAndShow}) => {
   return (
     <ScrollView
       contentContainerStyle={{
-        marginTop: 20,
+        marginTop: 10,
         rowGap: 15,
+        paddingBottom: Platform.OS === 'ios' ? 120 : 80,
       }}>
       {products &&
         products.length > 0 &&
@@ -98,11 +101,8 @@ const ProductList = ({storeAndShow}) => {
         <SansText
           fontFamily={Fonts.Nunito_regular}
           color={colors.GRAY}
-          fontSize={16}
-          style={{
-            marginTop: 20,
-          }}>
-          No Product Added
+          fontSize={16}>
+          No Products Added
         </SansText>
       )}
     </ScrollView>

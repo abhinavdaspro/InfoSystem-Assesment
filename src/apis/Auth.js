@@ -6,7 +6,7 @@ export const loginAPI = async data => {
       .then(res => {
         let users = JSON.parse(res);
         if (!users) {
-          console.error('get fail');
+          // console.error('get fail');
           reject({
             message: 'Please Register.',
             description: 'Please register first to use this app.',
@@ -14,11 +14,11 @@ export const loginAPI = async data => {
           return;
         }
 
-        console.log('users---', users);
+        // console.log('users---', users);
 
         let foundUser = users.find(val => val.email === data.email);
         if (!foundUser) {
-          console.error('wrong credential');
+          // console.error('wrong credential');
 
           reject({
             message: 'Please Register.',
@@ -39,7 +39,7 @@ export const loginAPI = async data => {
               role: foundUser.role,
             }),
           );
-          resolve(foundUser);
+          resolve({user: foundUser, users: users});
         } else {
           reject({
             message: 'Wrong Credentials',
@@ -48,7 +48,7 @@ export const loginAPI = async data => {
         }
       })
       .catch(err => {
-        console.error('error from async storage----', err);
+        // console.error('error from async storage----', err);
         reject({
           message: 'Something went wrong',
           description: 'Please try again later.',
@@ -77,7 +77,6 @@ export const registerAPI = data => {
           });
         }
 
-        console.log('users----', users);
         if (users) {
           if (users.find(val => val.email === userData.email)) {
             reject({
@@ -99,7 +98,7 @@ export const registerAPI = data => {
         }
       })
       .catch(err => {
-        console.error('error from async storage in register----', err);
+        // console.error('error from async storage in register----', err);
         reject({
           message: 'Something went wrong',
           description: 'Please try again later.',

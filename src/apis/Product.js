@@ -47,7 +47,7 @@ export const GetAllProduct = () => {
         }
       })
       .catch(err => {
-        console.log('err in  products----');
+        // console.log('err in  products----');
         reject([]);
       });
   });
@@ -63,7 +63,7 @@ export const UpdateProductAPI = products => {
         });
       })
       .catch(err => {
-        console.error('update error---');
+        // console.error('update error---');
         reject({
           message: 'Something went wrong.',
           description: 'Please try again later.',

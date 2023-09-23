@@ -7,16 +7,20 @@ const AuthProvider = ({children}) => {
   const [userData, setUserData] = useState({});
   const [products, setProducts] = useState([]);
   const [singleProduct, setSingleProduct] = useState({});
+  const [users, setUsers] = useState([]);
 
   const getAuthState = () => {
     return new Promise((resolve, reject) => {
       AsyncStorage.getItem('token')
         .then(res => {
           if (res) {
-            console.log('token---', res);
+            // console.log('token---', res);
             setLoggedInUser(true);
             AsyncStorage.getItem('userData').then(res => {
               setUserData(JSON.parse(res));
+            });
+            AsyncStorage.getItem('users').then(res => {
+              setUsers(JSON.parse(res));
             });
             resolve(true);
           } else {
@@ -26,7 +30,7 @@ const AuthProvider = ({children}) => {
           }
         })
         .catch(err => {
-          console.log('Auth catch block-----', err);
+          // console.log('Auth catch block-----', err);
           setLoggedInUser(false);
           // setUserData({});
           reject(true);
@@ -46,6 +50,8 @@ const AuthProvider = ({children}) => {
         setProducts,
         singleProduct,
         setSingleProduct,
+        users,
+        setUsers,
       }}>
       {children}
     </AuthContext.Provider>

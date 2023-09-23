@@ -22,7 +22,7 @@ import IonIcon from 'react-native-vector-icons/Ionicons';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
-  const contextData = useContext(AuthContext);
+  const {setUserData, setUsers} = useContext(AuthContext);
   const [modalVisible, setModalVisible] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
@@ -43,7 +43,8 @@ const LoginScreen = () => {
 
     loginAPI(formData)
       .then(res => {
-        contextData.setUserData(res);
+        setUserData(res.user);
+        setUsers(res.users);
         navigation.dispatch(
           CommonActions.reset({
             index: 1,

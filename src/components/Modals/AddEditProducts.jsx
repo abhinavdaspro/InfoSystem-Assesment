@@ -105,8 +105,6 @@ const AddEditProducts = ({
       let newProducts = JSON.parse(JSON.stringify(products));
       newProducts[tempIndex] = {...product};
 
-      console.log(tempIndex);
-      // return;
       UpdateProductAPI(newProducts)
         .then(res => {
           showMessage({
@@ -138,7 +136,13 @@ const AddEditProducts = ({
       transparent={true}
       visible={modalVisible}
       onRequestClose={reset}>
-      <KeyboardAwareScrollView contentContainerStyle={styles.centeredView}>
+      <KeyboardAwareScrollView
+        contentContainerStyle={[
+          styles.centeredView,
+          {
+            backgroundColor: 'rgba(0,0,0,0.6)',
+          },
+        ]}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <View style={styles.head}>
@@ -311,12 +315,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: Dimensions.get('screen').height,
-    // backgroundColor: 'rgba(0,0,0,0.6)',
   },
   modalView: {
     width: 0.9 * Dimensions.get('screen').width,
     // margin: 20,
-    backgroundColor: 'white',
+    backgroundColor: colors.WHITE,
     borderRadius: 20,
     padding: 15,
     shadowColor: '#000',

@@ -32,7 +32,7 @@ export const HomeScreen = () => {
         setProducts(res);
       })
       .catch(err => {
-        console.error('fail fetch---');
+        // console.error('fail fetch---');
         setProducts(err);
       });
   };
@@ -61,7 +61,12 @@ export const HomeScreen = () => {
           <Entypo name="plus" size={25} color={colors.WHITE} />
         </TouchableOpacity>
         <View style={styles.content}>
-          <SansText fontSize={18} fontFamily={Fonts.Montserrat_regular}>
+          <SansText
+            fontSize={18}
+            fontFamily={Fonts.Montserrat_regular}
+            style={{
+              marginBottom: 10,
+            }}>
             Products
           </SansText>
           <ProductList storeAndShow={storeAndShow} />
@@ -98,7 +103,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 100,
     position: 'absolute',
-    bottom: Platform.OS === 'ios' ? 110 : 100,
+    bottom: Platform.OS === 'ios' ? 110 : 170,
     right: 20,
     shadowColor: '#000',
     shadowOffset: {width: 4, height: 4},

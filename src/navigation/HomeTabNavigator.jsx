@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 import {Platform, Text} from 'react-native';
@@ -8,17 +8,45 @@ import {HomeScreen} from '../screens/HomeScreen/HomeScreen';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {UserScreen} from '../screens/UserScreen/UserScreen';
+import {AuthContext} from '../service/AuthService';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
+const HomeTabStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        component={HomeScreen}
+        name={NavigationNames.HomeScreen}
+        options={{headerShown: false}}
+      />
+    </Stack.Navigator>
+  );
+};
+
+const UserTabStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        component={UserScreen}
+        name={NavigationNames.UserScreen}
+        options={{headerShown: false}}
+      />
+    </Stack.Navigator>
+  );
+};
+
 const HomeTabNavigator = () => {
+  const {userData} = useContext(AuthContext);
+
   const androidTabStyle = {
     backgroundColor: colors.WHITE,
-    height: 60,
+    height: 80,
     position: 'absolute',
     bottom: 20,
-    paddingTop: 5,
+    paddingTop: 10,
+    paddingBottom: 20,
     borderRadius: 30,
     marginHorizontal: 15,
   };
@@ -43,30 +71,6 @@ const HomeTabNavigator = () => {
     elevation: 5,
   };
 
-  const HomeTabStack = () => {
-    return (
-      <Stack.Navigator>
-        <Stack.Screen
-          component={HomeScreen}
-          name={NavigationNames.HomeScreen}
-          options={{headerShown: false}}
-        />
-      </Stack.Navigator>
-    );
-  };
-
-  const UserTabStack = () => {
-    return (
-      <Stack.Navigator>
-        <Stack.Screen
-          component={UserScreen}
-          name={NavigationNames.UserScreen}
-          options={{headerShown: false}}
-        />
-      </Stack.Navigator>
-    );
-  };
-
   return (
     <Tab.Navigator
       backBehavior="history"
@@ -79,6 +83,7 @@ const HomeTabNavigator = () => {
         tabBarHideOnKeyboard: true,
         tabBarActiveTintColor: colors.PRIMARY,
         tabBarInactiveTintColor: colors.GRAY,
+        tabBarLabelPosition: 'below-icon',
       }}>
       <Tab.Screen
         name={NavigationNames.HomeTabScreen}
@@ -96,39 +101,37 @@ const HomeTabNavigator = () => {
           },
           tabBarLabel: ({color, focused, size}) => {
             return (
-              Platform.OS === 'ios' && (
-                <Text
-                  style={{
-                    color: focused ? colors.PRIMARY : colors.GRAY,
-                    fontSize: 14,
-                    fontFamily: focused
-                      ? Fonts.Montserrat_bold
-                      : Fonts.Montserrat_light,
-                  }}>
-                  Home
-                </Text>
-              )
+              <Text
+                style={{
+                  color: focused ? colors.PRIMARY : colors.GRAY,
+                  fontSize: 14,
+                  fontFamily: focused
+                    ? Fonts.Montserrat_bold
+                    : Fonts.Montserrat_light,
+                }}>
+                Home
+              </Text>
             );
           },
         }}
       />
-      {/* <Tab.Screen
-        name={NavigationNames.UserTabScreen}
-        component={UserTabStack}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({color, focused, size}) => {
-            return (
-              <Entypo
-                name="user"
-                color={focused ? colors.PRIMARY : colors.GRAY}
-                size={20}
-              />
-            );
-          },
-          tabBarLabel: ({color, focused, size}) => {
-            return (
-              Platform.OS === 'ios' && (
+      {userData.role === 'SM' && (
+        <Tab.Screen
+          name={NavigationNames.UserTabScreen}
+          component={UserTabStack}
+          options={{
+            headerShown: false,
+            tabBarIcon: ({color, focused, size}) => {
+              return (
+                <Entypo
+                  name="user"
+                  color={focused ? colors.PRIMARY : colors.GRAY}
+                  size={20}
+                />
+              );
+            },
+            tabBarLabel: ({color, focused, size}) => {
+              return (
                 <Text
                   style={{
                     color: focused ? colors.PRIMARY : colors.GRAY,
@@ -139,11 +142,11 @@ const HomeTabNavigator = () => {
                   }}>
                   User
                 </Text>
-              )
-            );
-          },
-        }}
-      /> */}
+              );
+            },
+          }}
+        />
+      )}
     </Tab.Navigator>
   );
 };

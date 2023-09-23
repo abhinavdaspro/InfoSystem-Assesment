@@ -3,6 +3,7 @@ import {FocusAwareStatusBar} from '../../components/Commons';
 import {Dimensions, StyleSheet, View} from 'react-native';
 import {HeaderView} from '../../components/Commons/Header';
 import {colors} from '../../config';
+import UserList from '../../components/Home/UserList';
 
 export const UserScreen = () => {
   return (
@@ -13,6 +14,9 @@ export const UserScreen = () => {
       />
       <View style={styles.container}>
         <HeaderView />
+        <View style={styles.content}>
+          <UserList />
+        </View>
       </View>
     </>
   );
