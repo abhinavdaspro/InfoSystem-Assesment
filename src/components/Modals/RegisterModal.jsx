@@ -13,6 +13,7 @@ import {Fonts, colors} from '../../config';
 import {registerAPI} from '../../apis/Auth';
 import {showMessage} from 'react-native-flash-message';
 import SansText from '../Commons/SansText';
+import Entypo from 'react-native-vector-icons/Entypo';
 
 export const RegisterModal = ({modalVisible, setModalVisible}) => {
   const [formData, setFormData] = useState({
@@ -77,7 +78,9 @@ export const RegisterModal = ({modalVisible, setModalVisible}) => {
       style={styles.modal}>
       <View style={{flex: 1}}>
         <View style={styles.container}>
-          <View style={styles.modalSwiper} />
+          <View style={styles.modalSwiper}>
+            <Entypo name="chevron-down" color={colors.GRAY} size={32} />
+          </View>
           <SansText fontSize={16} fontFamily={Fonts.Nunito_regular}>
             Username
           </SansText>
@@ -176,12 +179,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   modalSwiper: {
-    backgroundColor: colors.GRAY,
-    width: 45,
-    height: 5,
-    borderRadius: 10,
+    // backgroundColor: colors.GRAY,
+    // width: 45,
+    // height: 5,
+    // borderRadius: 10,
     marginTop: 10,
-    marginBottom: 20,
+    // marginBottom: 20,
     alignSelf: 'center',
   },
 });
