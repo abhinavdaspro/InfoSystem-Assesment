@@ -19,6 +19,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {AuthContext} from '../../service/AuthService';
 import {AddProductAPI, UpdateProductAPI} from '../../apis/Product';
 import {showMessage} from 'react-native-flash-message';
+import {ScrollWrapper} from '../Commons/ScrollWrapper';
 
 const AddEditProducts = ({
   modalVisible,
@@ -129,24 +130,6 @@ const AddEditProducts = ({
           });
           reset();
         });
-    }
-  };
-
-  const ScrollWrapper = props => {
-    if (Platform.OS === 'ios') {
-      return (
-        <KeyboardAwareScrollView
-          contentContainerStyle={[
-            styles.centeredView,
-            {
-              backgroundColor: 'rgba(0,0,0,0.6)',
-            },
-          ]}>
-          {props.children}
-        </KeyboardAwareScrollView>
-      );
-    } else {
-      return <ScrollView>{props.children}</ScrollView>;
     }
   };
 

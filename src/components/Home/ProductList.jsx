@@ -2,6 +2,7 @@ import React, {useContext, useEffect} from 'react';
 import SansText from '../Commons/SansText';
 import {AuthContext} from '../../service/AuthService';
 import {
+  Dimensions,
   Platform,
   ScrollView,
   StyleSheet,
@@ -87,7 +88,8 @@ const ProductList = ({storeAndShow}) => {
       contentContainerStyle={{
         marginTop: 10,
         rowGap: 15,
-        paddingBottom: Platform.OS === 'ios' ? 120 : 80,
+        paddingBottom:
+          Platform.OS === 'ios' ? 120 : 0.2 * Dimensions.get('screen').height,
       }}>
       {products &&
         products.length > 0 &&
