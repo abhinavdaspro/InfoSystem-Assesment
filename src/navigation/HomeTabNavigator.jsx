@@ -45,6 +45,7 @@ const HomeTabNavigator = () => {
     height: 80,
     position: 'absolute',
     bottom: 20,
+    // marginBottom: 20,
     paddingTop: 10,
     paddingBottom: 20,
     borderRadius: 30,

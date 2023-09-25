@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 100,
     position: 'absolute',
-    bottom: Platform.OS === 'ios' ? 110 : 170,
+    bottom: Platform.OS === 'ios' ? 110 : 0.2 * Dimensions.get('screen').height,
     right: 20,
     shadowColor: '#000',
     shadowOffset: {width: 4, height: 4},

@@ -9,11 +9,13 @@ import {
   Text,
   TextInput,
   View,
+  TouchableOpacity,
+  Platform,
+  ScrollView,
 } from 'react-native';
 import {Fonts, colors} from '../../config';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import {AuthContext} from '../../service/AuthService';
 import {AddProductAPI, UpdateProductAPI} from '../../apis/Product';
 import {showMessage} from 'react-native-flash-message';
@@ -130,19 +132,31 @@ const AddEditProducts = ({
     }
   };
 
+  const ScrollWrapper = props => {
+    if (Platform.OS === 'ios') {
+      return (
+        <KeyboardAwareScrollView
+          contentContainerStyle={[
+            styles.centeredView,
+            {
+              backgroundColor: 'rgba(0,0,0,0.6)',
+            },
+          ]}>
+          {props.children}
+        </KeyboardAwareScrollView>
+      );
+    } else {
+      return <ScrollView>{props.children}</ScrollView>;
+    }
+  };
+
   return (
     <Modal
       animationType="slide"
       transparent={true}
       visible={modalVisible}
       onRequestClose={reset}>
-      <KeyboardAwareScrollView
-        contentContainerStyle={[
-          styles.centeredView,
-          {
-            backgroundColor: 'rgba(0,0,0,0.6)',
-          },
-        ]}>
+      <ScrollWrapper>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <View style={styles.head}>
@@ -156,13 +170,14 @@ const AddEditProducts = ({
                 </SansText>
               </View>
               <View>
-                <TouchableOpacity onPress={reset}>
-                  <AntDesign
-                    name="closecircle"
-                    size={24}
-                    color={colors.PRIMARY}
-                  />
-                </TouchableOpacity>
+                {/* <TouchableOpacity onPress={reset}> */}
+                <AntDesign
+                  name="closecircle"
+                  size={24}
+                  color={colors.PRIMARY}
+                  onPress={reset}
+                />
+                {/* </TouchableOpacity> */}
               </View>
             </View>
 
@@ -291,7 +306,7 @@ const AddEditProducts = ({
               )}
             </View>
 
-            <TouchableOpacity style={styles.btn} onPress={handleSave}>
+            <TouchableOpacity style={styles.btn} onPress={() => handleSave()}>
               <SansText
                 fontSize={16}
                 color={colors.WHITE}
@@ -302,7 +317,7 @@ const AddEditProducts = ({
             </TouchableOpacity>
           </View>
         </View>
-      </KeyboardAwareScrollView>
+      </ScrollWrapper>
     </Modal>
   );
 };
@@ -340,6 +355,7 @@ const styles = StyleSheet.create({
     height: 45,
     width: '100%',
     paddingHorizontal: 15,
+    color: colors.DARK,
   },
   head: {
     flexDirection: 'row',

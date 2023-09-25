@@ -165,6 +165,7 @@ const styles = StyleSheet.create({
     height: 45,
     width: '100%',
     paddingHorizontal: 15,
+    color: colors.DARK,
   },
   btn: {
     marginTop: 20,
